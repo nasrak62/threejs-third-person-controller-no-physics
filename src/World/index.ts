@@ -1,6 +1,12 @@
 import * as THREE from "three";
 import Game from "../Game";
-import { createEnemie, createFloor, createLine, createPlayer } from "./utils";
+import {
+  createCube,
+  createFloor,
+  createFront,
+  createLine,
+  createText,
+} from "./utils";
 import PlayerCamera from "../PlayerCamera";
 import Player from "../Player";
 
@@ -18,11 +24,9 @@ export default class World {
     THREE.MeshBasicMaterial,
     THREE.Object3DEventMap
   >;
-  enemie: THREE.Mesh<
-    THREE.BoxGeometry,
-    THREE.MeshBasicMaterial,
-    THREE.Object3DEventMap
-  >;
+  enemie: THREE.Group<THREE.Object3DEventMap>;
+  lookAtObject: THREE.Group<THREE.Object3DEventMap>;
+  front: THREE.Group<THREE.Object3DEventMap>;
 
   constructor() {
     this.game = new Game();
@@ -39,9 +43,21 @@ export default class World {
 
     this.game.scene.add(this.floor);
 
-    this.enemie = createEnemie();
+    this.enemie = createCube(this.getTextFunction(), "enemie", 0x0000ff);
 
     this.game.scene.add(this.enemie);
+
+    this.front = createFront(this.getTextFunction(), "front", 0xff00ff);
+
+    this.game.scene.add(this.front);
+
+    this.lookAtObject = createCube(this.getTextFunction(), "look at", 0xaa4ac3);
+
+    this.game.scene.add(this.lookAtObject);
+  }
+
+  getTextFunction() {
+    return createText(this.game.font);
   }
 
   animate() {
@@ -54,6 +70,9 @@ export default class World {
 
     this.line.geometry.attributes.position.needsUpdate = true;
 
+    if (this.playerCamera.lookAt) {
+      this.lookAtObject.position.copy(this.playerCamera.lookAt);
+    }
     this.playerCamera.animate();
     // this.player.children.forEach((child, index) => {
     //   const number = (index - 0.5) * 0.01;

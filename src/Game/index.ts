@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { Font, FontLoader } from "three/addons/loaders/FontLoader.js";
 import { handlePointerLock, initRenderer, initSizes } from "./utils";
 import { TSizes } from "./types";
 import World from "../World";
@@ -15,6 +16,8 @@ export default class Game {
   deltaTime!: number;
   elapsedTime!: number;
   hasLock!: boolean;
+  fontLoader!: FontLoader;
+  font!: Font;
 
   constructor() {
     if (instance) {
@@ -29,10 +32,23 @@ export default class Game {
     this.handleResize();
     this.clock = new THREE.Clock();
     this.hasLock = false;
+    this.fontLoader = new FontLoader();
 
     this.addPointerLock();
 
     instance = this;
+  }
+
+  async loadFonts(): Promise<Font> {
+    return new Promise((resolve) => {
+      this.fontLoader.load(
+        "/fonts/optimer_regular.typeface.json",
+        function (font) {
+          resolve(font);
+          // this.font = font
+        },
+      );
+    });
   }
 
   handleLockRelese() {

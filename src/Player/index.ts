@@ -23,7 +23,7 @@ export default class Player {
 
   getFrontDirection() {
     let direction = this.getBackDirection();
-    direction = direction.multiply(REVERSE_VECTOR).normalize();
+    direction = direction.negate().normalize();
 
     return direction;
   }
