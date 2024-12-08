@@ -69,7 +69,7 @@ export default class PlayerCamera {
 
     const newPosition = calculateCameraNewPosition(
       finalAngle,
-      player.model.position.y,
+      player.model.position,
     );
 
     camera.position.lerp(newPosition, 0.7);

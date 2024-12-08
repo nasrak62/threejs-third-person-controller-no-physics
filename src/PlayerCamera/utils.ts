@@ -17,14 +17,18 @@ export const getAngleFromAbsoluteForward = (vector: THREE.Vector3) => {
 
 export const calculateCameraNewPosition = (
   angle: number,
-  playerYPosition: number,
+  playerPosition: THREE.Vector3,
 ) => {
   const radius = CAMERA_INITAL_VALUES.length;
 
   const x = radius * Math.cos(angle);
   const z = radius * Math.sin(angle);
-  const y = playerYPosition + CAMERA_HEIGHT_OFFSET;
-  const newPosition = new THREE.Vector3(x, y, z);
+  const y = playerPosition.y + CAMERA_HEIGHT_OFFSET;
+  const newPosition = new THREE.Vector3(
+    x + playerPosition.x,
+    y,
+    z + playerPosition.z,
+  );
 
   return newPosition;
 };

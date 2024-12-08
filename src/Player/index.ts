@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import Game from "../Game";
 import { createPlayer } from "../World/utils";
-import { REVERSE_VECTOR } from "./utils";
+import { CENTER_POINT_VECTOR } from "./utils";
 
 export default class Player {
   game: Game;
@@ -26,5 +26,9 @@ export default class Player {
     direction = direction.negate().normalize();
 
     return direction;
+  }
+
+  getDistanceFromCenter() {
+    return this.model.position.distanceTo(CENTER_POINT_VECTOR);
   }
 }

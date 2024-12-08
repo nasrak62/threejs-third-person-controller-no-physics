@@ -9,6 +9,7 @@ import {
 } from "./utils";
 import PlayerCamera from "../PlayerCamera";
 import Player from "../Player";
+import PlayerController from "../PlayerController";
 
 export default class World {
   game: Game;
@@ -27,14 +28,18 @@ export default class World {
   enemie: THREE.Group<THREE.Object3DEventMap>;
   lookAtObject: THREE.Group<THREE.Object3DEventMap>;
   front: THREE.Group<THREE.Object3DEventMap>;
+  playerController: PlayerController;
 
   constructor() {
     this.game = new Game();
     this.player = new Player();
 
+    console.log(this.game);
+
     const light = new THREE.AmbientLight(0x404040, 1.0); // soft white light
     this.game.scene.add(light);
     this.playerCamera = new PlayerCamera();
+    this.playerController = new PlayerController();
 
     this.line = createLine();
     this.game.scene.add(this.line);
@@ -74,10 +79,6 @@ export default class World {
       this.lookAtObject.position.copy(this.playerCamera.lookAt);
     }
     this.playerCamera.animate();
-    // this.player.children.forEach((child, index) => {
-    //   const number = (index - 0.5) * 0.01;
-    //   child.position.x += number;
-    //   child.rotation.x += number;
-    // });
+    this.playerController.animate();
   }
 }
