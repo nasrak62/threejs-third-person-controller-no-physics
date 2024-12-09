@@ -1,10 +1,4 @@
-import { radToDeg } from "three/src/math/MathUtils.js";
 import Game from "../Game";
-import {
-  ABSOLUTE_RIGHT_VECTOR,
-  getAngleFromAbsoluteForward,
-} from "../PlayerCamera/utils";
-import { getVectorString } from "../utils/vector";
 import { rotateVector } from "./utils";
 
 export default class PlayerController {

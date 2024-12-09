@@ -7,10 +7,6 @@ import {
   getAngleFromAbsoluteForward,
   getLookAtPosition,
 } from "./utils";
-import { getVectorString } from "../utils/vector";
-import { fromRadToAngle } from "../utils/angles";
-import { cameraPosition } from "three/webgpu";
-import { radToDeg } from "three/src/math/MathUtils.js";
 import Player from "../Player";
 
 export default class PlayerCamera {
