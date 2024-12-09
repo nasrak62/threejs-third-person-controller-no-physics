@@ -42,7 +42,7 @@ export default class Game {
   async loadFonts(): Promise<Font> {
     return new Promise((resolve) => {
       this.fontLoader.load(
-        "../assets/fonts/optimer_regular.typeface.json",
+        `${window.location.origin}/${window.location.pathname}/fonts/optimer_regular.typeface.json`,
         function (font) {
           resolve(font);
           // this.font = font
